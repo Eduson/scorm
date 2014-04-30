@@ -130,7 +130,6 @@ module Scorm
 
       # Create the path to the course
       FileUtils.mkdir_p(@path)
-
       Zip::File::foreach(@package) do |entry|
         entry_path = File.join(@path, entry.name)
         entry_dir = File.dirname(entry_path)

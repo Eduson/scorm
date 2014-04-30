@@ -17,7 +17,7 @@ module Scorm
       def run(command, args)
         begin
           run_internal(command, args.dup)
-        rescue Zip::ZipError => e
+        rescue Zip::Error => e
           error e.message
         rescue InvalidPackage => e
           error e.message

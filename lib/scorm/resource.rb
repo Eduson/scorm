@@ -14,8 +14,8 @@ module Scorm
     def initialize(id, type, scorm_type, href = nil, metadata = nil, files = nil, dependencies = nil)
       raise InvalidManifest, 'Missing resource id' if id.nil?
       raise InvalidManifest, 'Missing resource type' if type.nil?
-      breakpoint if scorm_type.nil?
       raise InvalidManifest, 'Missing resource scormType' if scorm_type.nil?
+
       @id = id.to_s
       @type = type.to_s
       @scorm_type = scorm_type.to_s

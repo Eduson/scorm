@@ -74,14 +74,14 @@ module Scorm
           i = (i || 0) + 1
 
         # Make sure the generated path is unique.
-        end while File.exists?(@path)
+        end while File.exist?(@path)
       end
 
       # Extract the package
       extract!
 
       # Detect and read imsmanifest.xml
-      if exists?('imsmanifest.xml')
+      if exist?('imsmanifest.xml')
         @manifest = Manifest.new(self, file('imsmanifest.xml'))
       else
         raise InvalidPackage, "#{File.basename(@package)}: no imsmanifest.xml, maybe not SCORM compatible?"
@@ -112,7 +112,7 @@ module Scorm
 
     # Cleans up by deleting all extracted files. Called when an error occurs.
     def cleanup
-      FileUtils.rmtree(@path) if @options[:cleanup] && !@options[:dry_run] && @path && File.exists?(@path) && package?
+      FileUtils.rmtree(@path) if @options[:cleanup] && !@options[:dry_run] && @path && File.exist?(@path) && package?
     end
 
     # Extracts the content of the package to the course repository. This will be
@@ -134,7 +134,7 @@ module Scorm
       Zip::File::foreach(@package) do |entry|
         entry_path = File.join(@path, entry.name)
         entry_dir = File.dirname(entry_path)
-        FileUtils.mkdir_p(entry_dir) unless File.exists?(entry_dir)
+        FileUtils.mkdir_p(entry_dir) unless File.exist?(entry_dir)
         entry.extract(entry_path)
       end
     end
@@ -152,7 +152,7 @@ module Scorm
     # set to +true+ when opening the package the file will <em>not</em> be
     # extracted to the file system, but read directly into memory.
     def file(filename)
-      if File.exists?(@path)
+      if File.exist?(@path)
         File.read(path_to(filename))
       else
         Zip::File.foreach(@package) do |entry|
@@ -162,9 +162,9 @@ module Scorm
     end
 
     # Returns +true+ if the specified file (or directory) exists in the package.
-    def exists?(filename)
-      if File.exists?(@path)
-        File.exists?(path_to(filename))
+    def exist?(filename)
+      if File.exist?(@path)
+        File.exist?(path_to(filename))
       else
         Zip::File::foreach(@package) do |entry|
           return true if entry.name == filename

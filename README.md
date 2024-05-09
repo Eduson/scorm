@@ -22,11 +22,11 @@ Example Workflow
 ----------------
 
     scorm create mypackage        # Create a new package skeleton
-    cd mypackage                  # 
+    cd mypackage                  #
     scorm bundle                  # Create .zip file from current directory
     scorm check mypackage.zip     # Verify that the package is valid SCORM
     scorm extract mypackage.zip   # Extract the mypackage.zip package
-    
+
 
 Installation
 ------------
@@ -37,7 +37,7 @@ To use the SCORM gem as a library in your application to extract and read
 SCORM files you can simply require the 'scorm/package' file.
 
     require 'scorm/package'
-    
+
     Scorm::Package.open('mypackage.zip') do |pkg|
       # Read stuff from the package...
       puts pkg.manifest.identifier
@@ -46,7 +46,7 @@ SCORM files you can simply require the 'scorm/package' file.
       pkg.manifest.resources.each do |resource|
         puts resource.href
         puts resource.scorm_type
-        if pkg.exists?(resource.files.first)
+        if pkg.exist?(resource.files.first)
           puts resource.files.first
           puts pkg.file(resource.files.first)
         end
@@ -56,7 +56,7 @@ SCORM files you can simply require the 'scorm/package' file.
 
 See the RDOC documentation for more info about what you can read from the
 package manifest.
-    
+
 
 About
 -----

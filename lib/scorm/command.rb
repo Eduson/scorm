@@ -8,7 +8,7 @@ module Scorm
     class CommandFailed  < RuntimeError; end
 
     class << self
-      
+
       def error(msg)
         STDERR.puts(msg)
         exit 1

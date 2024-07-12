@@ -1,5 +1,5 @@
 module Scorm
-  
+
   # A +Resource+ is a representation/description of an actual resource (image,
   # sco, pdf, etc...) in a SCORM package.
   class Resource
@@ -10,7 +10,7 @@ module Scorm
     attr_accessor :metadata
     attr_accessor :files
     attr_accessor :dependencies
-    
+
     def initialize(id, type, scorm_type, href = nil, metadata = nil, files = nil, dependencies = nil)
       raise InvalidManifest, 'Missing resource id' if id.nil?
       raise InvalidManifest, 'Missing resource type' if type.nil?
@@ -24,7 +24,7 @@ module Scorm
       @files = files || []
       @dependencies = dependencies || []
     end
-    
+
     def self.from_xml(element)
       metadata = nil
       files = []
@@ -46,8 +46,8 @@ module Scorm
 
 
       res = self.new(
-        element.attribute('identifier'), 
-        element.attribute('type'), 
+        element.attribute('identifier'),
+        element.attribute('type'),
         element.attribute('scormType', 'adlcp') || element.attribute('scormtype', 'adlcp'),
         xml_base + element.attribute('href').to_s,
         metadata,

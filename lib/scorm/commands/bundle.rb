@@ -5,10 +5,11 @@ module Scorm::Command
       unless File.exist?(File.join(File.expand_path(name), 'imsmanifest.xml'))
         raise(CommandFailed, "Invalid package, didn't find any imsmanifest.xml file.")
       end
-      
+
       outname = File.basename(File.expand_path(name)) + '.zip'
-      
+
       require 'zip'
+
       Zip::File.open(outname, Zip::File::CREATE) do |zipfile|
         Scorm::Package.open(name) do |pkg|
           Scorm::Manifest::MANIFEST_FILES.each do |file|
@@ -22,7 +23,7 @@ module Scorm::Command
           end
         end
       end
-      
+
       display "Created new SCORM package \"#{outname}\"."
     end
   end

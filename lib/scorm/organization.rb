@@ -9,20 +9,20 @@
 module Scorm
   # The +Organization+ class holds data about the organization of a SCORM
   # package. An organization contains an id, title and any number of +items+.
-  # An +Item+ are (in most cases) the same thing as a SCO (Shareable Content 
+  # An +Item+ are (in most cases) the same thing as a SCO (Shareable Content
   # Object).
   class Organization
     attr_accessor :id
     attr_accessor :title
     attr_accessor :items
-    
+
     def initialize(id, title, items)
       raise InvalidManifest, 'missing organization id' if id.nil?
       @id = id.to_s
       @title = title.to_s
       @items = items
     end
-    
+
     def self.from_xml(element)
       id = element.attribute('identifier').to_s
       title = element.get_elements('title').first.text.to_s if element.get_elements('title').first
@@ -32,9 +32,9 @@ module Scorm
       end
       return self.new(id, title, items)
     end
-    
+
     # An item has an id, title, and (in some cases) a parent item. An item is
-    # associated with a resource, which in most cases is a SCO (Shareable 
+    # associated with a resource, which in most cases is a SCO (Shareable
     # Content Object) resource.
     class Item
       attr_accessor :id
@@ -46,7 +46,7 @@ module Scorm
       attr_accessor :time_limit_action
       attr_accessor :data_from_lms
       attr_accessor :completion_threshold
-      
+
       def initialize(id, title, isvisible = true, parameters = nil, resource_id = nil, children = nil)
         @id = id.to_s
         @title = title.to_s
@@ -55,7 +55,7 @@ module Scorm
         @resource_id = resource_id
         @children = children if children.is_a? Array
       end
-      
+
       def self.from_xml(element)
         item_id = element.attribute('identifier').to_s
         item_title = element.get_elements('title').first.text.to_s if element.get_elements('title').first

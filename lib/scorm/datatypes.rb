@@ -51,6 +51,24 @@ module Scorm
         sec -= min*60
         return "#{hours}:#{min}:#{sec}"
       end
+
+      def to_scorm_s
+        sec = self.to_f
+        hours = (sec/60/60).to_i
+        sec -= hours*60*60
+        min = (sec/60).to_i
+        sec -= min*60
+        sec = (sec*100).round/100.0
+
+        rtn_str = "PT"
+        if hours > 0
+          rtn_str += "#{hours}H"
+        end
+        if min > 0
+          rtn_str += "#{min}M"
+        end
+        rtn_str += "#{sec}S"
+      end
     end
     
   end

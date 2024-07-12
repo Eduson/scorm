@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.bindir             = 'bin'
   s.executables        = ['scorm']
 
-  s.add_dependency('rubyzip',  '~> 1.1')
+  s.add_dependency('rubyzip',  '>= 1.2.2')
 end

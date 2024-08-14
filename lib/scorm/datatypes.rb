@@ -1,11 +1,11 @@
 module Scorm
   module Datatypes
-    
+
     class Timeinterval
       def initialize(seconds)
         @sec = seconds
       end
-      
+
       def self.parse(str)
         case str
         when /(\d{2,4}):(\d{2}):(\d{2})/
@@ -34,15 +34,15 @@ module Scorm
         second = second || 0
         self.new((year*31557600) + (month*2629800) + (day*86400) + (hour*3600) + (minute*60) + second)
       end
-      
+
       def to_i
         @sec.to_i
       end
-      
+
       def to_f
         @sec.to_f
       end
-      
+
       def to_s
         sec = self.to_i
         hours = (sec/60/60).to_i
@@ -51,7 +51,25 @@ module Scorm
         sec -= min*60
         return "#{hours}:#{min}:#{sec}"
       end
+
+      def to_scorm_s
+        sec = self.to_f
+        hours = (sec/60/60).to_i
+        sec -= hours*60*60
+        min = (sec/60).to_i
+        sec -= min*60
+        sec = (sec*100).round/100.0
+
+        rtn_str = "PT"
+        if hours > 0
+          rtn_str += "#{hours}H"
+        end
+        if min > 0
+          rtn_str += "#{min}M"
+        end
+        rtn_str += "#{sec}S"
+      end
     end
-    
+
   end
 end

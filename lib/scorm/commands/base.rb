@@ -4,12 +4,12 @@ module Scorm::Command
   class Base
     attr_accessor :args
     attr_reader :autodetected_package
-    
+
     def initialize(args)
       @args = args
       @autodetected_package = false
     end
-    
+
     def display(msg, newline=true)
       if newline
         puts(msg)
